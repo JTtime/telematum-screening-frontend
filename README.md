@@ -14,7 +14,10 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the homePage.
+Open [http://localhost:3000/clients](http://localhost:3000/clients) with your browser to see the screening frontend demo.
+
+Other two routes are basically inital attempts to create customTable
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
