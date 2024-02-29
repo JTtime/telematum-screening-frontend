@@ -19,7 +19,7 @@ const CustomTable = ({ data, columns, stickyHeader, stickyColumn }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((row, rowIndex) => (
+          {data?.map((row, rowIndex) => (
             <tr
               key={rowIndex}
               className={`${stickyColumn && rowIndex === 0 && "sticky left-0"} px-4 py-2`}

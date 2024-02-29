@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import CustomTable from "../sharedComponents/CustomTable";
 import { FiClock } from "react-icons/fi";
 import { BsCalendar4Week } from "react-icons/bs";
@@ -6,56 +8,73 @@ import { GiAlliedStar } from "react-icons/gi";
 import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 
 const TablePage = () => {
-  const appointments = [
-    {
-      patient_name: "John Doe",
-      mobile_number: "123-456-7890",
-      appointment_date: "2024-02-26",
-      appointment_time: "10:00 AM",
-      doctor: "Dr. Smith",
-      injury: "Sprained ankle",
-    },
-    {
-      patient_name: "Jane Smith",
-      mobile_number: "987-654-3210",
-      appointment_date: "2024-02-26",
-      appointment_time: "11:30 AM",
-      doctor: "Dr. Johnson",
-      injury: "Back pain",
-    },
-    {
-      patient_name: "Michael Johnson",
-      mobile_number: "456-789-0123",
-      appointment_date: "2024-02-26",
-      appointment_time: "1:00 PM",
-      doctor: "Dr. Lee",
-      injury: "Headache",
-    },
-    {
-      patient_name: "Emily Davis",
-      mobile_number: "789-012-3456",
-      appointment_date: "2024-02-26",
-      appointment_time: "2:30 PM",
-      doctor: "Dr. Patel",
-      injury: "Sore throat",
-    },
-    {
-      patient_name: "David Wilson",
-      mobile_number: "321-654-9870",
-      appointment_date: "2024-02-26",
-      appointment_time: "4:00 PM",
-      doctor: "Dr. Garcia",
-      injury: "Fever",
-    },
-    {
-      patient_name: "Sarah Brown",
-      mobile_number: "654-321-0987",
-      appointment_date: "2024-02-26",
-      appointment_time: "5:30 PM",
-      doctor: "Dr. Kim",
-      injury: "Cough",
-    },
-  ];
+  const [patientData, setPatientData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function fetchData() {
+    const response = await fetch(
+      "https://gist.githubusercontent.com/telematum/7751eec667033ac8acd244542e464e18/raw/d4710c6fb54224a0bd316ecdc5246633aceefce5/todays.json",
+    );
+    const data = await response.json();
+    setPatientData(data?.appointments);
+
+    console.log(data);
+  }
+  useEffect(() => {
+    setIsLoading(true);
+    fetchData();
+    setIsLoading(false);
+  }, []);
+  // const appointments = [
+  //   {
+  //     patient_name: "John Doe",
+  //     mobile_number: "123-456-7890",
+  //     appointment_date: "2024-02-26",
+  //     appointment_time: "10:00 AM",
+  //     doctor: "Dr. Smith",
+  //     injury: "Sprained ankle",
+  //   },
+  //   {
+  //     patient_name: "Jane Smith",
+  //     mobile_number: "987-654-3210",
+  //     appointment_date: "2024-02-26",
+  //     appointment_time: "11:30 AM",
+  //     doctor: "Dr. Johnson",
+  //     injury: "Back pain",
+  //   },
+  //   {
+  //     patient_name: "Michael Johnson",
+  //     mobile_number: "456-789-0123",
+  //     appointment_date: "2024-02-26",
+  //     appointment_time: "1:00 PM",
+  //     doctor: "Dr. Lee",
+  //     injury: "Headache",
+  //   },
+  //   {
+  //     patient_name: "Emily Davis",
+  //     mobile_number: "789-012-3456",
+  //     appointment_date: "2024-02-26",
+  //     appointment_time: "2:30 PM",
+  //     doctor: "Dr. Patel",
+  //     injury: "Sore throat",
+  //   },
+  //   {
+  //     patient_name: "David Wilson",
+  //     mobile_number: "321-654-9870",
+  //     appointment_date: "2024-02-26",
+  //     appointment_time: "4:00 PM",
+  //     doctor: "Dr. Garcia",
+  //     injury: "Fever",
+  //   },
+  //   {
+  //     patient_name: "Sarah Brown",
+  //     mobile_number: "654-321-0987",
+  //     appointment_date: "2024-02-26",
+  //     appointment_time: "5:30 PM",
+  //     doctor: "Dr. Kim",
+  //     injury: "Cough",
+  //   },
+  // ];
 
   const columnData = [
     {
@@ -137,7 +156,7 @@ const TablePage = () => {
         <CustomTable
           stickyColumn
           stickyHeader
-          data={appointments}
+          data={patientData}
           columns={columnData}
         />
       </div>
